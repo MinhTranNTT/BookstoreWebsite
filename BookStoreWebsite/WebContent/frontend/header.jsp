@@ -1,7 +1,7 @@
 <div align="center">
 	
 	<div>
-		<img alt="piclogo" src="images/BookstoreLogo.png">	
+		<img alt="piclogo" src="../images/BookstoreLogo.png">	
 	</div>
 	
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
