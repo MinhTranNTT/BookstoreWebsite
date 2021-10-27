@@ -9,6 +9,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+	@NamedQuery (name = "Users.listAll", query = "SELECT u FROM Users u ORDER BY u.fullName"),
+	@NamedQuery (name = "Users.countAll", query = "SELECT COUNT(*) FROM Users")
+})
 public class Users {
 
 	private Integer userId;
