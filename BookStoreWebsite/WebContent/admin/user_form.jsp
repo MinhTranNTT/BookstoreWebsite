@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,15 @@
 	<jsp:directive.include file="header.jsp" />
 
 	<div align="center">
-		<h2>Create New User</h2>
+		<h2>
+			<c:if test="${user != null}">
+				Edit User
+			</c:if>
+			
+			<c:if test="${user == null}">
+				Create New User
+			</c:if>
+		</h2>
 	</div>
 
 	<div align="center">
@@ -20,19 +29,19 @@
 			<tr>
 					<td align="right">Email:</td>
 					<td align="left"><input type="text" name="email" id="email"
-						size="20" /></td>
+						size="20" value="${user.email}" /></td>
 			</tr>
 	
 			<tr>
 					<td align="right">Full Name:</td>
 					<td align="left"><input type="text" name="fullname"
-						id="fullname" size="20" /></td>
+						id="fullname" size="20" value="${user.fullName}" /></td>
 			</tr>
 	
 			<tr>
 					<td align="right">Password:</td>
 					<td align="left"><input type="password" name="password"
-						id="password" size="20" /></td>
+						id="password" size="20" value="${user.password}" /></td>
 			</tr>
 	
 			<tr>
