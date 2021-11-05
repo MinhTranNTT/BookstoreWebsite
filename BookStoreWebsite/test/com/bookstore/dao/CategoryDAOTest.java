@@ -81,7 +81,21 @@ public class CategoryDAOTest extends BaseDAOTest {
 		assertTrue(countCategory != 0);
 	}
 	
+	@Test
+	public void testFindByName() {
+		String nameCategory = "Java Advanced";
+		Category cate = categoryDAO.findByName(nameCategory);
+		
+		assertNotNull(cate);
+	}
 	
+	@Test
+	public void testFindByNameNotExist() {
+		String name = "Hibernate";
+		Category category = categoryDAO.findByName(name);
+		
+		assertNull(category);
+	}
 	
 
 }
