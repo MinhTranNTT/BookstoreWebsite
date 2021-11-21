@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Evergreen - Book Store Admin</title>
+	<meta charset="ISO-8859-1">
+	<title>Evergreen - Book Store Admin</title>
+	<link rel="stylesheet" href="../css/style.css" >
 </head>
 <body>
 
@@ -12,12 +13,12 @@
 	<jsp:directive.include file="header.jsp" />
 
 	<div align="center">
-		<h2>Administrative Admin</h2>
+		<h2 class="pageheading">Administrative Admin</h2>
 	</div>
 	
 	<div align="center">
 	<hr width="60%">
-		<h2>Quick Actions:</h2>
+		<h2 class="pageheading">Quick Actions:</h2>
 		<b>
 			<a href="create_book">New Book</a> &nbsp;
 			<a href="create_user">New User</a> &nbsp;
@@ -29,17 +30,17 @@
 	
 	<div align="center">
 		<hr width="60%">
-		<h2>Recent Sales</h2>
+		<h2 class="pageheading">Recent Sales</h2>
 	</div>
 	
 	<div align="center">
 		<hr width="60%">
-		<h2>Recent Reviews</h2>
+		<h2 class="pageheading">Recent Reviews</h2>
 	</div>
 	
 	<div align="center">
 		<hr width="60%">
-		<h2>Statistic</h2>
+		<h2 class="pageheading">Statistic</h2>
 		<hr width="60%">
 	</div>
 	

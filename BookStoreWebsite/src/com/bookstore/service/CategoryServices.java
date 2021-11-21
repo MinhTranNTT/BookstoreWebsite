@@ -114,6 +114,14 @@ public class CategoryServices {
 		}
 		
 	}
+
+	public void deleteCategory() throws ServletException, IOException {
+		int categoryId = Integer.parseInt(request.getParameter("id"));
+		cateDAO.delete(categoryId);
+		
+		String message = "The Category with ID " + categoryId + " has been removed successfully.";
+		listCategory(message);
+	}
 	
 	
 }

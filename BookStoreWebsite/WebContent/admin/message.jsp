@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Evergreen BookStore Administration</title>
+	<title>Evergreen BookStore Administration</title>
+	<link rel="stylesheet" href="../css/style.css" >
 </head>
 <body>
 	<!-- import header jsp admin -->

@@ -14,14 +14,16 @@
 			Edit Category
 		</c:if>	
 	</title>
-	
+	<link rel="stylesheet" href="../css/style.css" >
+	<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 	<!-- import header jsp admin -->
 	<jsp:directive.include file="header.jsp" />
 
 	<div align="center">
-		<h2>
+		<h2 class="pageheading">
 			<c:if test="${category != null}">
 				Edit Category
 			</c:if>
@@ -35,15 +37,15 @@
 	<div align="center">
 	
 	<c:if test="${category != null}">
-		<form action="update_category" method="post" onsubmit="return validateFormInput()">
+		<form action="update_category" method="post" id="categoryForm">
 		
 		<input type="hidden" name="categoryId" value="${category.categoryId}" />
 	</c:if>
 	
 	<c:if test="${category == null}">
-		<form action="create_category" method="post" onsubmit="return validateFormInput()">
+		<form action="create_category" method="post" id="categoryForm" >
 	</c:if>
-		<table>
+		<table class="form">
 			
 			<tr>
 				<td align="right">Name:</td>
@@ -54,8 +56,8 @@
 			
 			<tr>
 				<td colspan="2" align="center">
-					<input type="submit" value="Save"/>
-					<input type="button" value="Cancel" onclick="javascript:history.go(-1);"/>
+					<button type="submit" >Save</button> &nbsp;&nbsp;&nbsp;
+					<button	id="buttonCancel" >Cancel</button>
 				</td>
 			</tr>
 		</table>
@@ -67,17 +69,23 @@
 </body>
 <!-- script js-->
 <script type="text/javascript">
-	function validateFormInput() {
-		var fieldName = document.getElementById("name");
+	
+$(document).ready(function() {
+	$("#categoryForm").validate({
+		rules: {
+			name: "required",
+		},
 		
-		if(fieldName.value.length == 0) {
-			alert("Category name is required!");
-			fieldName.focus();
-			return false;
+		messages: {
+			name: "Please enter category name",
 		}
-		
-		return true;
-	}
+	});
+	
+	$("#buttonCancel").click(function() {
+		history.go(-1);
+	});
+});
+
 </script>
 
 </html>
