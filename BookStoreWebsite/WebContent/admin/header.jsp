@@ -1,8 +1,8 @@
-
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div align="center">
 	<img alt="loginadmin" src="../images/BookstoreAdminLogo.png">
 	<div>
-		Welcome, Admin | <a href="logout">Logout</a> 
+		Welcome, <c:out value="${sessionScope.useremail}"></c:out> | <a href="logout">Logout</a> 
 		<br>
 	</div>
 

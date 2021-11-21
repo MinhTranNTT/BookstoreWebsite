@@ -16,6 +16,11 @@ public class AdminHomeServlet extends HttpServlet {
     public AdminHomeServlet() {
         super();
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	doGet(request, response);
+    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String homePage = "index.jsp";
