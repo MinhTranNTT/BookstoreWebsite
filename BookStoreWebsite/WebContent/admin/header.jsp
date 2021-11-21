@@ -5,7 +5,7 @@
 		Welcome, <c:out value="${sessionScope.useremail}"></c:out> | <a href="logout">Logout</a> 
 		<br>
 	</div>
-
+	<br>
 	<div id="headermenu">
 	
 		<div>
