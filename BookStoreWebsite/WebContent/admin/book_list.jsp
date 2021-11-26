@@ -17,7 +17,7 @@
 
 	<div align="center">
 		<h2 class="pageheading">Books Management</h2>
-		<h3><a href="user_form.jsp">Create New Book</a></h3>
+		<h3><a href="new_book">Create New Book</a></h3>
 	</div>
 	
 	<c:if test="${message != null}">
