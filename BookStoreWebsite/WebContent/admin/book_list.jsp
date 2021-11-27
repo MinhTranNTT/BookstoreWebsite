@@ -74,7 +74,7 @@
 				$(this).on("click", function() {
 					bookId = $(this).attr("id");
 					if (confirm('Are you sure you want to delete the Book with ID ' +  bookId + '?')) {
-						window.location = 'delete_user?id=' + bookId;
+						window.location = 'delete_book?id=' + bookId;
 					}					
 				});
 			});
