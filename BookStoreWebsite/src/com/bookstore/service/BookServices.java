@@ -193,12 +193,44 @@ public class BookServices {
 	}
 
 	public void deleteBook() throws ServletException, IOException {
+		
 		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
+		String message = "";
+		
+		if (book == null) {
+			message = "Could not find book with ID " + bookId + ", or it might have been deleted";
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("message.jsp").forward(request, response);
+		} else {
+			message = "The book has been deleted successfully.";
+			bookDAO.delete(bookId);			
+		}
 		
 		bookDAO.delete(bookId);
 		
-		String message = "The book has been deleted successfully.";
 		listBooks(message);
 	}
+
+	public void listBooksByCategory() throws ServletException, IOException {
+		
+		int categoryId = Integer.parseInt(request.getParameter("id"));
+		List<Book> listBooks = bookDAO.listByCategory(categoryId);
+		Category category = categoryDAO.get(categoryId);
+		List<Category> listCategory = categoryDAO.listAll();
+		
+		request.setAttribute("listBooks", listBooks);
+		request.setAttribute("category", category);
+		request.setAttribute("listCategory", listCategory);
+		
+		String listPage = "frontend/books_list_by_category.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
+		requestDispatcher.forward(request, response);
+		
+		// <jsp:directive.include file="book_rating.jsp" />
+	}
+	
+	
 	
 }
