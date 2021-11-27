@@ -5,6 +5,7 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Evergreen Books - Welcome to BookStore</title>
+	<link rel="stylesheet" href="css/style.css" >
 </head>
 <body>
 

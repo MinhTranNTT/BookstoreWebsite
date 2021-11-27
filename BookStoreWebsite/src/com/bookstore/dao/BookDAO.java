@@ -10,8 +10,7 @@ import com.bookstore.entity.Book;
 
 public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 
-	public BookDAO(EntityManager entityManager) {
-		super(entityManager);
+	public BookDAO() {
 	}
 
 	@Override
@@ -65,11 +64,8 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 	}
 	
 	public List<Book> listNewBooks() {
-		Query query = entityManager.createNamedQuery("Book.listNewBook");
-		query.setFirstResult(0);
-		query.setMaxResults(4);
 		
-		return query.getResultList();
+		return super.findWithNamedQuery("Book.listNewBook", 0, 4);
 	}
 	
 }

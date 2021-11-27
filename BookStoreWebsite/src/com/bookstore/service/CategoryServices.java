@@ -3,9 +3,6 @@ package com.bookstore.service;
 import java.io.IOException;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,17 +13,15 @@ import com.bookstore.entity.Category;
 
 public class CategoryServices {
 	
-	private EntityManager entityManager;
 	private CategoryDAO cateDAO;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 
-	public CategoryServices(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) {
-		this.entityManager = entityManager;
+	public CategoryServices(HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;
 		this.response = response;
 		
-		cateDAO = new CategoryDAO(entityManager);
+		cateDAO = new CategoryDAO();
 		
 	}
 	
