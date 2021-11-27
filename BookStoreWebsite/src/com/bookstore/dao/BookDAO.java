@@ -60,6 +60,10 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 		return super.countWithNamedQuery("Book.countAll");
 	}
 	
+	public List<Book> search(String keyword) {
+		return super.findWithNamedQuery("Book.search", "keyword", keyword);
+	}
+	
 	public List<Book> listNewBooks() {
 		Query query = entityManager.createNamedQuery("Book.listNewBook");
 		query.setFirstResult(0);

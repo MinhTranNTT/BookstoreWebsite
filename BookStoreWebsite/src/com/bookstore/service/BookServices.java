@@ -216,8 +216,19 @@ public class BookServices {
 	public void listBooksByCategory() throws ServletException, IOException {
 		
 		int categoryId = Integer.parseInt(request.getParameter("id"));
-		List<Book> listBooks = bookDAO.listByCategory(categoryId);
+	
 		Category category = categoryDAO.get(categoryId);
+		
+		
+		if (category == null) {
+			String message = "Sorry, the category ID " + categoryId + " is not available.";
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("frontend/message.jsp").forward(request, response);
+			
+			return;
+		}
+		
+		List<Book> listBooks = bookDAO.listByCategory(categoryId);
 		List<Category> listCategory = categoryDAO.listAll();
 		
 		request.setAttribute("listBooks", listBooks);
@@ -229,6 +240,47 @@ public class BookServices {
 		requestDispatcher.forward(request, response);
 		
 		// <jsp:directive.include file="book_rating.jsp" />
+	}
+
+	public void viewBookDetails() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
+		
+		
+		if(book == null) {
+			String message = "Sorry! the book with ID " + bookId + " is not available.";
+		    request.setAttribute("message", message);
+            request.getRequestDispatcher("frontend/message.jsp").forward(request, response);
+			                                                      
+			return;
+		}
+		List<Category> listCategories = categoryDAO.listAll();
+		
+		request.setAttribute("book", book);
+		request.setAttribute("listCategories", listCategories);
+		
+		String detailPage = "frontend/book_detail.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(detailPage);
+		requestDispatcher.forward(request, response);
+		
+	}
+
+	public void search() throws ServletException, IOException {
+		String keyword = request.getParameter("keyword");
+		List<Book> result = null;
+		
+		if (keyword.equals("")) {
+			result = bookDAO.listAll();
+		} else {
+			result = bookDAO.search(keyword);
+		}
+		
+		request.setAttribute("result", result);
+		request.setAttribute("keyword", keyword);
+		
+		String resultPage = "frontend/search_result.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(resultPage);
+		requestDispatcher.forward(request, response);
 	}
 	
 	
