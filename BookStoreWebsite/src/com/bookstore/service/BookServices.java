@@ -54,9 +54,9 @@ public class BookServices {
 	}
 
 	public void showBookNewForm() throws ServletException, IOException {
-		List<Category> listCategories = categoryDAO.listAll();
+		List<Category> listCategory = categoryDAO.listAll();
 		
-		request.setAttribute("listCategories", listCategories);
+		request.setAttribute("listCategory", listCategory);
 		
 		String newPage = "book_form.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(newPage);
@@ -93,10 +93,10 @@ public class BookServices {
 		String destPage = "book_form.jsp";
 		
 		if (book != null) {
-			List<Category> listCategories = categoryDAO.listAll();
+			List<Category> listCategory = categoryDAO.listAll();
 			
 			request.setAttribute("book", book);
-			request.setAttribute("listCategories", listCategories);
+			request.setAttribute("listCategory", listCategory);
 			
 		} else {
 			destPage = "message.jsp";
@@ -227,11 +227,11 @@ public class BookServices {
 		}
 		
 		List<Book> listBooks = bookDAO.listByCategory(categoryId);
-		List<Category> listCategory = categoryDAO.listAll();
+		//List<Category> listCategory = categoryDAO.listAll();
 		
 		request.setAttribute("listBooks", listBooks);
 		request.setAttribute("category", category);
-		request.setAttribute("listCategory", listCategory);
+		//request.setAttribute("listCategory", listCategory);
 		
 		String listPage = "frontend/books_list_by_category.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
@@ -252,10 +252,10 @@ public class BookServices {
 			                                                      
 			return;
 		}
-		List<Category> listCategories = categoryDAO.listAll();
+		//List<Category> listCategory = categoryDAO.listAll();
 		
 		request.setAttribute("book", book);
-		request.setAttribute("listCategories", listCategories);
+//		request.setAttribute("listCategory", listCategory);
 		
 		String detailPage = "frontend/book_detail.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(detailPage);
