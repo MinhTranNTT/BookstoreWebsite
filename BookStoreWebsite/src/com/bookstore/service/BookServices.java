@@ -66,7 +66,6 @@ public class BookServices {
 	}
 
 	public void createBook() throws ServletException, IOException {
-		Integer categoryId = Integer.parseInt(request.getParameter("category"));
 		String title = request.getParameter("title");
 		
 		Book existBook = bookDAO.findByTitle(title);
@@ -77,6 +76,73 @@ public class BookServices {
 		    return;
 		}
 		
+		Book newBook = new Book();
+		readBookFields(newBook);
+		
+		Book createdBook = bookDAO.create(newBook);
+		
+		if (createdBook.getBookId() > 0) {
+			String message = "A new book has been created successfully";
+			
+			request.setAttribute("message", message);
+			listBooks(message);
+		}
+	}
+	
+	public void editBook() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
+		String destPage = "book_form.jsp";
+		
+		if (book != null) {
+			List<Category> listCategories = categoryDAO.listAll();
+			
+			request.setAttribute("book", book);
+			request.setAttribute("listCategories", listCategories);
+			
+		} else {
+			destPage = "message.jsp";
+			String message = "Could not find book with ID " + bookId;
+			request.setAttribute("message", message);			
+		}
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
+		requestDispatcher.forward(request, response);		
+			
+	}
+
+	public void updateBook() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("bookId"));
+		String title = request.getParameter("title");
+		
+		Book existBook = bookDAO.get(bookId);
+		Book bookByTitle = bookDAO.findByTitle(title);
+		
+		if (bookByTitle != null && !existBook.equals(bookByTitle)) {
+			String message = "Could not update book because there's another book having same title.";
+			listBooks(message);
+			return;
+		}
+		
+		readBookFields(existBook);
+		
+		bookDAO.update(existBook);
+		
+		String message = "The book has been updated successfully.";
+		listBooks(message);
+		
+//		List<Category> listCategories = categoryDAO.listAll();
+//		
+//		request.setAttribute("book", existBook);
+//		request.setAttribute("listCategories", listCategories);
+//		
+//		String editPage = "book_form.jsp";
+//		RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
+//		requestDispatcher.forward(request, response);
+	}
+	
+	public void readBookFields(Book book) throws ServletException, IOException {
+		String title = request.getParameter("title");
 		String author = request.getParameter("author");
 		String description = request.getParameter("description");
 		String isbn = request.getParameter("isbn");
@@ -92,24 +158,17 @@ public class BookServices {
 			throw new ServletException("Error parsing publish date (format is MM/dd/yyyy)");
 		}
 		
-		System.out.println("Category ID: " +categoryId);
-		System.out.println("Title: " +title);
-		System.out.println("Author: " +author);
-		System.out.println("Description: " +description);
-		System.out.println("ISBN: " +isbn);
-		System.out.println("Price: " +price);
-		System.out.println("Publish Date: " +publishDate);
+
+		book.setTitle(title);
+		book.setAuthor(author);
+		book.setIsbn(isbn);
+		book.setDescription(description);
+		book.setPublishDate(publishDate);
+		book.setPrice(price);
 		
-		Book newBook = new Book();
-		newBook.setTitle(title);
-		newBook.setAuthor(author);
-		newBook.setIsbn(isbn);
-		newBook.setDescription(description);
-		newBook.setPublishDate(publishDate);
-		newBook.setPrice(price);
-		
+		Integer categoryId = Integer.parseInt(request.getParameter("category"));
 		Category category = categoryDAO.get(categoryId);
-		newBook.setCategory(category);
+		book.setCategory(category);
 		
 		Part part = request.getPart("bookImage");
 		
@@ -121,17 +180,16 @@ public class BookServices {
 			inputStream.read(imageBytes);
 			inputStream.close();
 			
-			newBook.setImage(imageBytes);
-		}
+			book.setImage(imageBytes);
+		} 
 		
-		Book createdBook = bookDAO.create(newBook);
-		
-		if (createdBook.getBookId() > 0) {
-			String message = "A new book has been created successfully";
-			
-			request.setAttribute("message", message);
-			listBooks(message);
-		}
+		System.out.println("Category ID: " +categoryId);
+		System.out.println("Title: " +title);
+		System.out.println("Author: " +author);
+		System.out.println("Description: " +description);
+		System.out.println("ISBN: " +isbn);
+		System.out.println("Price: " +price);
+		System.out.println("Publish Date: " +publishDate);
 	}
 	
 }
