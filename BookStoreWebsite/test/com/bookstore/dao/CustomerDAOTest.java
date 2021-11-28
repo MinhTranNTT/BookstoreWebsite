@@ -25,8 +25,21 @@ public class CustomerDAOTest {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testCheckLoginSuccess() {
+		String email = "meme@gmail.com";
+		String password = "meme2020";
+		
+		Customer customer = customerDAO.checkLogin(email, password);
+		assertNotNull(customer);
+	}
+	
+	@Test
+	public void testCheckLoginFail() {
+		String email = "meme99@gmail.com";
+		String password = "meme2020";
+		
+		Customer customer = customerDAO.checkLogin(email, password);
+		assertNull(customer);
 	}
 	
 	@Test

@@ -14,8 +14,17 @@
 			<input type="text" name="keyword" size="50"/>
 			<input type="submit" value="Search"/>
 		
-			<a href="login">Sign in</a> |
-			<a href="register">Register</a> |
+			<c:if test="${loggedCustomer == null }">
+				<a href="login">Sign in</a> |
+				<a href="register">Register</a> |
+			</c:if>
+			
+			<c:if test="${loggedCustomer != null }">
+				<a href="view_profile">Welcome, ${loggedCustomer.fullname}</a> |
+				<a href="view_order">My Orders</a> |
+				<a href="logout">Logout</a> |
+			</c:if>
+			
 			<a href="view_cart">Cart</a>
 		</form>	
 	</div>
