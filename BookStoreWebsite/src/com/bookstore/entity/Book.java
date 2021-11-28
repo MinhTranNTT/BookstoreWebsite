@@ -31,6 +31,8 @@ import javax.persistence.UniqueConstraint;
 	@NamedQuery (name = "Book.findAll", query = "SELECT b FROM Book b"),
 	@NamedQuery (name = "Book.findByTitle", query = "SELECT b FROM Book b WHERE b.title = :title"),
 	@NamedQuery (name = "Book.countAll", query = "SELECT COUNT(*) FROM Book b"),
+	@NamedQuery (name = "Book.countByCategory", query = "SELECT COUNT(b) FROM Book b WHERE"
+			+ " b.category.categoryId = :cateId"),	
 	@NamedQuery (name = "Book.findByCategory", query = "SELECT b FROM Book b JOIN Category c on b.category.categoryId = c.categoryId"
 			+ " AND c.categoryId = :cateId"),
 	@NamedQuery (name = "Book.listNewBook", query = "SELECT b FROM Book b ORDER BY b.publishDate DESC"),
@@ -183,7 +185,7 @@ public class Book implements java.io.Serializable {
 		this.lastUpdateTime = lastUpdateTime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
 	public Set<Review> getReviews() {
 		return this.reviews;
 	}

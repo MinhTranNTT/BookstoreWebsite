@@ -8,8 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bookstore.dao.BookDAO;
 import com.bookstore.dao.CategoryDAO;
 import com.bookstore.entity.Category;
+import static com.bookstore.service.CommonUtility.*;
 
 public class CategoryServices {
 	
@@ -38,10 +40,11 @@ public class CategoryServices {
 			request.setAttribute("message", message);
 		}
 		
+//		String listPage = "category_list.jsp";
+//		RequestDispatcher dispatcher = request.getRequestDispatcher(listPage);
+//		dispatcher.forward(request, response);
 		
-		String listPage = "category_list.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(listPage);
-		dispatcher.forward(request, response);
+		forwardToPage("category_list.jsp", request, response);
 	}
 
 	public void createCategory() throws ServletException, IOException {
@@ -51,9 +54,11 @@ public class CategoryServices {
 		if (existCategory != null) {
 			
 			String message = "Cound not create Category. A Category with name " + nameCate + " already exists.";
-			request.setAttribute("message", message);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
-			requestDispatcher.forward(request, response);
+//			request.setAttribute("message", message);
+//			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+//			requestDispatcher.forward(request, response);
+			
+			showMessageBackend(message, request, response);
 		} else {
 			
 			Category category = new Category(nameCate);
@@ -72,16 +77,17 @@ public class CategoryServices {
 		if(category == null) {
 			destPage = "message.jsp"; 
 			String message = "Could not edit category with " + categoryId;
+			//request.setAttribute("message", message);
 			
-			request.setAttribute("message", message);
-			
+			showMessageBackend(message, request, response);
 		} else {
 			
 			request.setAttribute("category", category);	
+			forwardToPage("category_form.jsp", request, response);
 		}
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
-		requestDispatcher.forward(request, response);
+//		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
+//		requestDispatcher.forward(request, response);
 	}
 
 	public void updateCategory() throws ServletException, IOException {
@@ -112,9 +118,20 @@ public class CategoryServices {
 
 	public void deleteCategory() throws ServletException, IOException {
 		int categoryId = Integer.parseInt(request.getParameter("id"));
-		cateDAO.delete(categoryId);
+		BookDAO bookDAO = new BookDAO();
+		long numberCategory = bookDAO.countByCategory(categoryId);
 		
-		String message = "The Category with ID " + categoryId + " has been removed successfully.";
+		String message = "";
+		if (numberCategory > 0) {
+			message = "Could not delete the Category (ID: %d) because it currently contains some book.";
+			message = String.format(message, numberCategory);
+		} else {
+			cateDAO.delete(categoryId);
+			message = "The Category with ID " + categoryId + " has been removed successfully.";
+		}
+		
+		
+		
 		listCategory(message);
 	}
 	

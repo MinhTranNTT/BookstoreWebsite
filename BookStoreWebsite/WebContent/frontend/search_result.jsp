@@ -15,7 +15,7 @@
 	<jsp:directive.include file="header.jsp"/>
 	
 	<!-- Main content jsp -->
-	<div align="center">
+	<div class="center">
 	
 		<c:if test="${fn:length(result) == 0}">
 			<center><h2>No Results found for "${keyword}"</h2></center>

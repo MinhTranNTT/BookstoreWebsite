@@ -20,7 +20,7 @@ import com.bookstore.dao.CategoryDAO;
 import com.bookstore.entity.Book;
 import com.bookstore.entity.Category;
 
-public class BookServices {
+public class BookServices extends CommonUtility {
 	
 	private BookDAO bookDAO;
 	private CategoryDAO categoryDAO;
@@ -199,8 +199,10 @@ public class BookServices {
 		if (book == null) {
 			message = "Could not find book with ID " + bookId + ", or it might have been deleted";
 			
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			//request.setAttribute("message", message);
+			//request.getRequestDispatcher("message.jsp").forward(request, response);
+			
+			showMessageBackend(message, request, response);
 		} else {
 			message = "The book has been deleted successfully.";
 			bookDAO.delete(bookId);			

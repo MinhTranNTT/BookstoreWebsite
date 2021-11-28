@@ -17,7 +17,7 @@
 	
 	<!-- Main content jsp -->
 	<div align="center">
-		<table align="center" style="width:80%", margin="0">
+		<table align="center" style="width: 80%; margin: 0 auto;border: 0;" >
 			<tr>
 				<td colspan="3" align="left">
 					<p id="book-title"><h2>${book.title}</h2></p>

@@ -14,13 +14,12 @@
 	
 	<!-- Main content jsp -->
 	<div align="center">
-		<br><br>
-		
+	
 		<div align="center" style="width: 80%; margin: 0 auto;">
-	          <h2>New Book:</h2>
+	          <h2 class="pageheading">New Book:</h2>
 	          
 	          <c:forEach items="${listNewBooks}" var="book" >
-	            <div style="display: inline-block; margin: 10px">
+	            <div class="book">
 	               <div>
 	                   <a href="view_book?id=${book.bookId}">
 	                       <img src="data:image/jpg;base64,${book.base64Image}" width="128" height="164"/>
@@ -37,11 +36,11 @@
 	          </c:forEach>
 	     </div>
 		
-		<div align="center" style="clear: both">
+		<div class="next-row">
 			<h2>Best-Selling Book:</h2>
 		</div>
 		
-		<div align="center" style="clear: both">
+		<div class="next-row">
 			<h2>Most-favored Book:</h2>
 		</div>
 		

@@ -64,6 +64,14 @@ public class BookDAOTest {
 	}
 	
 	@Test
+	public void testCountByCategory() {
+		int categoryId = 12;
+		long result = bookDAO.countByCategory(categoryId);
+		
+		assertTrue(result > 0);
+	}
+	
+	@Test
 	public void testCreate2ndBook() throws ParseException, IOException {
 		
 		Book newBook = new Book();

@@ -28,4 +28,11 @@ public class AdminHomeServlet extends HttpServlet {
 		requestDispatcher.forward(request, response);
 	}
 
+// Configuration persistence c3p0
+//	<property name="hibernate.c3p0.min_size" value="5"/>
+//	<property name="hibernate.c3p0.max_size" value="10"/>
+//	<property name="hibernate.c3p0.timeout" value="120"/>
+//	<property name="hibernate.c3p0.max_statements" value="50"/>
+//	<property name="hibernate.c3p0.idle_test_period" value="100"/>
+
 }
