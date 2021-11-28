@@ -1,5 +1,7 @@
 package com.bookstore.service;
 
+import static com.bookstore.service.CommonUtility.forwardToPage;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -16,9 +18,6 @@ public class CustomerServices extends CommonUtility {
 	private HttpServletResponse response;
 	private CustomerDAO customerDAO;
 	
-	public CustomerServices() {
-		
-	}
 	
 	public CustomerServices(HttpServletRequest request, HttpServletResponse response) {
 		super();
@@ -88,6 +87,38 @@ public class CustomerServices extends CommonUtility {
         customer.setZipcode(zipcode);
         customer.setCountry(country);
         customer.setAddress(address);
+	}
+
+	public void editCustomer() throws ServletException, IOException {
+		Integer customerId = Integer.parseInt(request.getParameter("id"));
+		Customer customer = customerDAO.get(customerId);
+		
+		request.setAttribute("customer", customer);	
+		
+		forwardToPage("customer_form.jsp", request, response);
+	}
+
+	public void updateCustomer() throws ServletException, IOException {
+		Integer customerId = Integer.parseInt(request.getParameter("customerId"));
+		String email = request.getParameter("email");
+		
+		Customer customerByEmail = customerDAO.findByEmail(email);
+		String message = null;
+		
+		if (customerByEmail != null && customerByEmail.getCustomerId() != customerId) {
+			message = "Could not update the customer ID " + customerId 
+					+ "because there's an existing customer having the same email";
+		} else {
+			
+			Customer customerById = customerDAO.get(customerId);
+			updateCustomerFieldsFromForm(customerById);
+			customerDAO.update(customerById);
+			
+			message = "The customer has been updated successfully";
+
+		}
+		listCustomers(message);
+		
 	}
 	
 	
