@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-<div class="center">
+<div align="center">
 	
 	<div>
 		<a href="${pageContext.request.contextPath}/">

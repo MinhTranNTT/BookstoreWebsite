@@ -5,6 +5,7 @@ import static com.bookstore.service.CommonUtility.forwardToPage;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,6 +61,35 @@ public class CustomerServices extends CommonUtility {
 			
 			listCustomers("New customer has been created successfully");
 		}
+	}
+	
+	public void registerCustomer() throws ServletException, IOException { 
+		System.out.println("RegisterCustomer Service");
+		String email = request.getParameter("email");
+		Customer existCustomer = customerDAO.findByEmail(email);
+		String message = "";
+		
+		if(existCustomer != null) {
+			message = "Could not register customer: the email "
+		       + email + " is already registered";
+		}
+		else {
+			Customer newCustomer = new Customer();
+			updateCustomerFieldsFromForm(newCustomer);			
+			customerDAO.create(newCustomer);
+			
+			message = "You have registered successfully! Thank you "
+					 + "<a href='frontend/login.jsp'>Click here to</a> login";
+		
+			}
+		
+		String messagePage = "frontend/message.jsp";
+	
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(messagePage);
+		request.setAttribute("message", message);
+		requestDispatcher.forward(request, response);
+		
+//		forwardToPage("frontend/message.jsp", message, request, response);
 	}
 
 	private void updateCustomerFieldsFromForm(Customer customer) {
