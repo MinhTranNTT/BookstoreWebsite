@@ -120,6 +120,24 @@ public class CustomerServices extends CommonUtility {
 		listCustomers(message);
 		
 	}
+
+	public void deleteCustomer() throws ServletException, IOException {
+		Integer customerId = Integer.parseInt(request.getParameter("id"));
+		Customer customer = customerDAO.get(customerId);
+		String message="";
+		
+		if (customer != null) {
+			customerDAO.delete(customerId);			
+			message = "The customer has been deleted successfully.";
+			//listCustomers(message);
+				
+		} else {
+			message = "Could not find customer with ID " + customerId + ", "
+					+ "or it has been deleted by another admin";
+			showMessageBackend(message, request, response);
+		}
+		listCustomers(message);
+	}
 	
 	
 }
