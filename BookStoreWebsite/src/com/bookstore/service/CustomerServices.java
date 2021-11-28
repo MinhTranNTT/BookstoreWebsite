@@ -208,7 +208,7 @@ public class CustomerServices extends CommonUtility {
 		
 	}
 
-	private void showCustomerProfile() throws ServletException, IOException {
+	public void showCustomerProfile() throws ServletException, IOException {
 		
 //		String profilePage = "frontend/customer_profile.jsp";
 //		RequestDispatcher dispatcher = request.getRequestDispatcher(profilePage);
