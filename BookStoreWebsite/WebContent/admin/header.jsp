@@ -35,7 +35,7 @@
 		</div>
 		
 		<div>
-			<a href="reviews">
+			<a href="list_review">
 				<img alt="reivewPic" src="../images/review.png"><br>Reviews
 			</a>
 		</div>

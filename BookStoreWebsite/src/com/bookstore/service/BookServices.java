@@ -199,18 +199,28 @@ public class BookServices extends CommonUtility {
 		if (book == null) {
 			message = "Could not find book with ID " + bookId + ", or it might have been deleted";
 			
-			//request.setAttribute("message", message);
-			//request.getRequestDispatcher("message.jsp").forward(request, response);
-			
 			showMessageBackend(message, request, response);
 		} else {
-			message = "The book has been deleted successfully.";
-			bookDAO.delete(bookId);			
+			
+			if (!book.getReviews().isEmpty()) {
+				
+				message = "Could not delete the book with ID " + bookId
+						+ " because it has reviews";
+				showMessageBackend(message, request, response);
+				
+			} else {
+				
+				message = "The book has been deleted successfully.";
+				bookDAO.delete(bookId);	
+				listBooks(message);
+			}
+			
+				
 		}
 		
-		bookDAO.delete(bookId);
+	//	bookDAO.delete(bookId);
 		
-		listBooks(message);
+		
 	}
 
 	public void listBooksByCategory() throws ServletException, IOException {
