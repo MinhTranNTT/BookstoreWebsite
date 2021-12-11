@@ -112,7 +112,7 @@ public class CustomerServices extends CommonUtility {
         }
         
         customer.setFullname(fullName);
-        customer.setPassword(password);
+        //customer.setPassword(password);
         customer.setPhone(phone);
         customer.setCity(city);
         customer.setZipcode(zipcode);
@@ -215,6 +215,17 @@ public class CustomerServices extends CommonUtility {
 //		dispatcher.forward(request, response);
 		
 		forwardToPage("frontend/customer_profile.jsp", request, response);
+	}
+
+	public void showCustomerProfileEditForm() throws ServletException, IOException {
+		forwardToPage("frontend/edit_profile.jsp", request, response);
+	}
+
+	public void updateCustomerProfile() throws ServletException, IOException {
+		Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+		updateCustomerFieldsFromForm(customer);
+		customerDAO.update(customer);
+		showCustomerProfile();
 	}
 	
 	
