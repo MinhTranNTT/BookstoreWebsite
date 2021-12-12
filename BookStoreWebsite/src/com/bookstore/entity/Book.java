@@ -221,6 +221,23 @@ public class Book implements java.io.Serializable {
 		result = prime * result + bookId;
 		return result;
 	}
+	
+	@Transient
+	public float getAverageRating() {
+		float averageRating = 0.0f;
+		float sum = 0.0f;
+		
+		if (reviews.isEmpty()) {
+			return 0.0f;
+		}
+		
+		for (Review review : reviews) {
+			sum += review.getRating();
+		}
+		averageRating = sum / reviews.size();
+		
+		return averageRating;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
