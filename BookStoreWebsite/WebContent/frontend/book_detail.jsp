@@ -29,11 +29,17 @@
 				<td rowspan="2">
 					<img class="book-large" src="data:image/jpg;base64,${book.base64Image}" width="240" height="300"/>
 				</td>
+				
+				
 				<td valign="top" align="left">
-					
+					<!-- import book_rating jsp -->
+					<jsp:directive.include file="book_rating.jsp"/>
 					
 					<a href="#reviews"> ${fn:length(book.reviews)} Reviews</a>
 				</td>
+				
+				
+				
 				<td valign="top" rowspan="2" width="20%">
 					<h2>$ ${book.price}</h2>
 					<br/><br/>
